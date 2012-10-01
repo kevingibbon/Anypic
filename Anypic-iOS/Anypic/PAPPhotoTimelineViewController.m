@@ -13,6 +13,8 @@
 #import "PAPUtility.h"
 #import "PAPLoadMoreCell.h"
 
+#define kS3ThumbnailImagePath https://s3.amazonaws.com/kgibbon-parse/
+
 @interface PAPPhotoTimelineViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
@@ -333,6 +335,8 @@
         
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
+            NSLog(@"URL:%@", cell.imageView.file.url);
+            NSLog(@"NAME:%@", [[NSURL URLWithString:cell.imageView.file.url] lastPathComponent]);
             
             // PFQTVC will take care of asynchronously downloading files, but will only load them when the tableview is not moving. If the data is there, let's load it right away.
             if ([cell.imageView.file isDataAvailable]) {
